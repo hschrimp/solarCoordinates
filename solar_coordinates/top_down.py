@@ -25,19 +25,19 @@ heading = 0
 
 degree = u'\xb0'
 
-def ellipse(x_radius, y_radius, steps=60):
+def ellipse(turtle, x_radius, y_radius, steps=60):
 
-    down = topdown.isdown()  # record pen state for restoration later
+    down = turtle.isdown()  # record pen state for restoration later
 
     if not down:
-        topdown.pendown()
+        turtle.pendown()
 
-    heading_radians = math.radians(topdown.heading())
+    heading_radians = math.radians(turtle.heading())
     theta_radians = -math.pi / 2
     extent_radians = 2 * math.pi
     step_radians = extent_radians / steps
     extent_radians += theta_radians
-    x_center, y_start = topdown.position()
+    x_center, y_start = turtle.position()
     y_center = y_start + y_radius
 
     cos_heading, sin_heading = math.cos(heading_radians), math.sin(heading_radians)
@@ -49,18 +49,18 @@ def ellipse(x_radius, y_radius, steps=60):
         x, y = x * cos_heading - y * sin_heading, x * sin_heading + y * cos_heading
         x, y = x + x_center, y + y_start
 
-        topdown.setheading(topdown.towards(x, y))  # turtle faces direction in which ellipse is drawn
-        topdown.goto(x, y)
+        turtle.setheading(turtle.towards(x, y))  # turtle faces direction in which ellipse is drawn
+        turtle.goto(x, y)
 
         if theta_radians == extent_radians:
             break
 
         theta_radians = min(theta_radians + step_radians, extent_radians)  # don't overshoot our starting point
 
-    topdown.setheading(topdown.towards(x_center, y_start))  # set correct heading for the next thing we draw
+    turtle.setheading(turtle.towards(x_center, y_start))  # set correct heading for the next thing we draw
 
     if not down:  # restore pen state on return
-        topdown.penup()
+        turtle.penup()
 
 
 def drawObjectRect(r, c, x, y, z, name, scale=1, line=True):
@@ -131,7 +131,7 @@ def drawEclipticAxes():
     topdown.forward(xrange)
     write_name('0' + degree + ' long', 30)
     topdown.left(90)
-    ellipse(yrange, xrange)
+    ellipse(topdown, yrange, xrange)
     reset()
     topdown.left(90)
     topdown.forward(yrange + 40)

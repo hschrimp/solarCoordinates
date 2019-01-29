@@ -1,7 +1,7 @@
-name,longitude,latitude,distance,color
-Neptune,344,-1,29.938,aqua
-Earth,0,0,1,blue
-Mars,24,0,1.465,red
-Jupiter,253,0,5,orange
-Saturn,282,0,10,yellow
-Uranus,28,0,20,green
+name,longitude,latitude,distance,color,size
+Neptune,344,-1,29.938,aqua,6
+Earth,0,0,1,medium blue,3
+Mars,24,0,1.465,coral,2
+Jupiter,153,0,5,peru,10
+Saturn,210,0,10,khaki,8
+Uranus,58,0,20,turquoise,6
