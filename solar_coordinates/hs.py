@@ -2,7 +2,7 @@ from turtle import *
 from solar_coordinates.utilities import ellipse, draw_dashes
 
 
-class Ecliptic:
+class HS:
     def __init__(self):
         self.turtle = Turtle()
         bgcolor('white')
@@ -14,25 +14,32 @@ class Ecliptic:
         self.yscale = int(self.yrange / 30)
         self.offset = 100
         self.origin = self.turtle.pos()
-        self.heading = 0
+        self.heading = 7.25
+        self.zero_long = 266
         self.base_pensize = self.turtle.pensize()
         self.degree = u'\xb0'
         self.draw_ecliptic_axes()
 
     def draw_ecliptic_axes(self):
         self.reset()
-        self.turtle.color('red')
-        draw_dashes(self.turtle, self.xrange)
-        self.write_name('0' + self.degree + ' long', 30)
+        self.turtle.color('black')
+        self.turtle.setheading(self.heading)
+        self.turtle.penup()
+        self.turtle.forward(self.xrange)
+        self.turtle.pendown()
         self.turtle.left(90)
         ellipse(self.turtle, self.yrange, self.xrange)
         self.reset()
         self.turtle.left(90)
         draw_dashes(self.turtle, self.yrange+40)
-        self.write_name('90' + self.degree + ' lat (Ecliptic Axis)', 20)
+        self.write_name('90' + self.degree + ' lat (HS Axis)', 20)
         self.reset()
         self.turtle.right(90)
         draw_dashes(self.turtle, self.yrange+40)
+        self.reset()
+        self.turtle.left(self.zero_long)
+        draw_dashes(self.turtle, self.yrange)
+        self.write_name('0' + self.degree + ' long', 30)
         self.reset()
 
     def write_name(self, name, offset=20):
@@ -55,6 +62,7 @@ class Ecliptic:
         self.turtle.pendown()
 
     def draw_object_eclip(self, name, longitude, r, color, size=5):
+        self.turtle.setheading(self.zero_long)
         self.turtle.color(color)
         self.turtle.left(longitude)
         temp_long = longitude
@@ -80,6 +88,11 @@ class Ecliptic:
         name = planet_info.get('name')
         color = planet_info.get('color')
         size = float(planet_info.get('size'))
+
+        longitude = longitude - self.zero_long
+        if longitude < 0:
+            longitude = longitude + 360
+
         self.draw_object_eclip(name, longitude, r, color, size)
 
     def draw_sun(self):
