@@ -10,8 +10,10 @@ class HS:
         self.turtle.resizemode('auto')
         self.xrange = 720
         self.yrange = 180
-        self.xscale = int(self.xrange / 30)
-        self.yscale = int(self.yrange / 30)
+        # self.xscale = int(self.xrange / 30)
+        # self.yscale = int(self.yrange / 30)
+        self.xscale = 12
+        self.yscale = 12
         self.offset = 100
         self.origin = self.turtle.pos()
         self.heading = 7.25
@@ -71,7 +73,7 @@ class HS:
         if temp_long >= 90:
             temp_long = 180 - temp_long
         ratio = temp_long / 90.0
-        smart_scale = self.yscale * ratio + self.xscale * (1 - ratio)
+        smart_scale = self.xscale * ratio + self.yscale * (1 - ratio)
         self.turtle.forward(r * smart_scale + self.offset)
         name_offset = 60
         if name == 'Neptune':

@@ -10,8 +10,10 @@ class Ecliptic:
         self.turtle.resizemode('auto')
         self.xrange = 720
         self.yrange = 180
-        self.xscale = int(self.xrange / 30)
-        self.yscale = int(self.yrange / 30)
+        # self.xscale = int(self.xrange / 30)
+        # self.yscale = int(self.yrange / 30)
+        self.xscale = 12
+        self.yscale = 12
         self.offset = 100
         self.origin = self.turtle.pos()
         self.heading = 0
