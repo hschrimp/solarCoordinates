@@ -2,24 +2,17 @@ import math
 
 
 def draw_dashes(turtle, length):
-    turtle.forward(length)
-    # is_blank = False
-    # counter = 0
-    # for i in range(length):
-    #     if is_blank:
-    #         turtle.penup()
-    #         counter += 1
-    #         if counter > 10:
-    #             is_blank = False
-    #             counter = 0
-    #     else:
-    #         turtle.pendown()
-    #         counter += 1
-    #         if counter > 10:
-    #             is_blank = True
-    #             counter = 0
-    #     turtle.forward(1)
-    # turtle.pendown()
+    is_blank = False
+    num_dashes = round(length / 10)
+    for i in range(num_dashes):
+        if is_blank:
+            turtle.penup()
+            is_blank = False
+        else:
+            turtle.pendown()
+            is_blank = True
+        turtle.forward(10)
+    turtle.pendown()
 
 
 def ellipse(turtle, x_radius, y_radius, steps=60):

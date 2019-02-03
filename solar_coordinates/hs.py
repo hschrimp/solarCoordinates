@@ -3,7 +3,7 @@ from solar_coordinates.utilities import ellipse, draw_dashes
 
 
 class HS:
-    def __init__(self):
+    def __init__(self, tilt, prime_meridian, star_name):
         self.turtle = Turtle()
         bgcolor('white')
         self.turtle.shape('circle')
@@ -16,8 +16,9 @@ class HS:
         self.yscale = 12
         self.offset = 100
         self.origin = self.turtle.pos()
-        self.heading = 7.25
-        self.zero_long = 266
+        self.heading = tilt
+        self.zero_long = prime_meridian
+        self.star_name = star_name
         self.base_pensize = self.turtle.pensize()
         self.degree = u'\xb0'
         self.draw_ecliptic_axes()
@@ -39,7 +40,7 @@ class HS:
         self.turtle.right(90)
         draw_dashes(self.turtle, self.yrange+40)
         self.reset()
-        self.turtle.left(self.zero_long)
+        self.turtle.left(self.zero_long - self.heading)
         draw_dashes(self.turtle, self.yrange)
         self.write_name('0' + self.degree + ' long', 30)
         self.reset()
@@ -78,6 +79,8 @@ class HS:
         name_offset = 60
         if name == 'Neptune':
             name_offset = 80
+        if size > 10:
+            name_offset = 80
         print(name_offset, name)
         self.write_name(name + ' ' + str(longitude) + self.degree, name_offset)
         self.turtle.pensize(size)
@@ -104,7 +107,7 @@ class HS:
         self.turtle.left(90)
         self.turtle.pendown()
         self.turtle.color('gold')
-        self.write_name('Sun', 60)
+        self.write_name(self.star_name, 60)
         self.reset()
         self.turtle.pensize(20)
         self.turtle.stamp()
